@@ -1,0 +1,15 @@
+{
+    "name": "nobaar/findaddress",
+    "description": "this will find an address for a given latitute and longitute",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "iqstudiotehran",
+            "email": "iqstudiotehran@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "orchestra/testbench": "^4.4"
+    }
+}
