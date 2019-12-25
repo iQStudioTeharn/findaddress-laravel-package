@@ -8,7 +8,9 @@
             "email": "iqstudiotehran@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "guzzlehttp/guzzle": "^6.5"
+    },
     "require-dev": {
         "orchestra/testbench": "^4.4"
     },

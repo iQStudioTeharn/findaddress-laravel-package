@@ -4,12 +4,13 @@ namespace nobaar\findaddress\Tests;
 
 
 use nobaar\findaddress\FindAddressServiceProvider;
-// use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+
+use Illuminate\Support\Facades\Schema;
+
 class TestCase extends \Orchestra\Testbench\TestCase
 {
     // use DatabaseMigrations;
-    use RefreshDatabase;
+    
     public function setUp(): void
     {
       parent::setUp();
@@ -33,11 +34,14 @@ class TestCase extends \Orchestra\Testbench\TestCase
      */
     protected function getEnvironmentSetUp($app)
     {
-      
-      // import the CreateMapProvidersTable class from the migration
-      include_once __DIR__ . '/../src/database/migrations/create_map_providers_table.php';
-      // run the up() method of that migration class
-      (new \CreateMapProvidersTable)->up();
+      // dd(Schema::hasTable('map_providers'));
+      if(!Schema::hasTable('map_providers')){
+        
+        // import the CreateMapProvidersTable class from the migration
+        include_once __DIR__ . '/../src/database/migrations/create_map_providers_table.php';
+        // run the up() method of that migration class
+        (new \CreateMapProvidersTable)->up();
+      }
     }
 
   }

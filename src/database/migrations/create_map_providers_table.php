@@ -18,6 +18,7 @@ class CreateMapProvidersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->index();
             $table->bigInteger('count')->index()->default(0);
+            $table->timestamps();
         });
     }
 
@@ -28,6 +29,6 @@ class CreateMapProvidersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('findadrress');
+        Schema::dropIfExists('map_providers');
     }
 }

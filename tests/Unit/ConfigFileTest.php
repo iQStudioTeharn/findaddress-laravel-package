@@ -20,8 +20,6 @@ class ConfigFileTest extends TestCase
             "--provider" => "nobaar\\findaddress\\FindAddressServiceProvider",
             "--tag" => "config"
         ]);
-        
-        File::exists(config_path('findaddress.php'));
 
         $this->assertTrue(File::exists(config_path('findaddress.php')));
     }    
