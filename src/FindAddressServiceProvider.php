@@ -21,12 +21,13 @@ class FindAddressServiceProvider extends ServiceProvider
 
             
         
-          }
-          if (! class_exists('CreateMapProvidersTable')) {
-            $this->publishes([
-              __DIR__ . '/../database/migrations/create_map_providers_table.php' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_map_providers_table.php'),
-              // you can add any number of migrations here
-            ], 'migrations');
+            if (! class_exists('CreateMapProvidersTable')) {
+             
+              $this->publishes([
+                realpath(__DIR__.'/database/migrations/create_map_providers_table.php') => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_map_providers_table.php'),
+                // you can add any number of migrations here
+              ], 'migrations');
+            }
           }
     }
 

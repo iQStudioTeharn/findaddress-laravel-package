@@ -13,7 +13,9 @@ class Finder
     public $lat;
     public $long;
     public $selectedProvider;
-
+    public $origins;
+    public $destinations;
+    
     public function __construct()
     {
         $this->confProviders = config('findaddress.proveiders');
@@ -27,13 +29,19 @@ class Finder
         return $this->Address();
         
     }
+    public function getDistance($origins,$destinations)
+    {
+        $this->origins = $origins;
+        $this->destinations = $destinations;
+        return $this->distance();
+    }
 
 
 
     public function Address(){
         $this->selectedProvider = $this->provider();
-        $token = $this->confProviders[$this->selectedProvider->name]['token'];
-        $api = $this->confProviders[$this->selectedProvider->name]['api'];
+        $token = $this->confProviders[$this->selectedProvider->name]['address']['token'];
+        $api = $this->confProviders[$this->selectedProvider->name]['address']['api'];
         $client = new Client();
         $response = $client->request('GET', $api . '?lat=' . $this->lat . '&lng=' . $this->long , [
             'headers' => [
@@ -49,6 +57,27 @@ class Finder
         $address  = json_decode($response->getBody()->getContents());
         return $address; 
 
+    }
+
+    public function distance()
+    {
+        $this->selectedProvider = $this->provider();
+        $token = $this->confProviders[$this->selectedProvider->name]['distance']['token'];
+        $api = $this->confProviders[$this->selectedProvider->name]['distance']['api'];
+        $client = new Client();
+        $response = $client->request('GET', $api . '?origins=' . $this->origins['lat'].','.$this->origins['long'] . '&destinations=' . $this->destinations['lat'].','.$this->destinations['long'] , [
+            'headers' => [
+                'Api-Key' => $token,
+                'Accept'     => 'application/json',
+        ]]);
+
+        if($response->getStatusCode() == 200){
+            $this->providerLog();
+        }else{
+           return false;
+        }
+        $distance  = json_decode($response->getBody()->getContents());
+        return $distance; 
     }
 
     public function provider()
